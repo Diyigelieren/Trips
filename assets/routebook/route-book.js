@@ -204,8 +204,8 @@
       for(const [id,item] of this.layers.entries()){
         const selected=this.activeId==='all'||id===this.activeId;
         const dim=this.activeId!=='all'&&!selected;
-        item.casing.setStyle({opacity:dim?.16:.9,weight:selected?(item.route.casingWeight||11):8});
-        item.core.setStyle({opacity:dim?.18:.98,weight:selected?(item.route.weight||6):4});
+        item.casing.setStyle({opacity:dim ? .16 : .9,weight:selected?(item.route.casingWeight||11):8});
+        item.core.setStyle({opacity:dim ? .18 : .98,weight:selected?(item.route.weight||6):4});
         item.hit.setStyle({opacity:0});
         const arrows=this.arrowLayers.get(id);
         const nodes=this.nodeLayers.get(id);
@@ -215,9 +215,9 @@
           else if(!dim&&!this.map.hasLayer(arrows)) arrows.addTo(this.map);
         }
         if(nodes){
-          nodes.getLayers().forEach(x=>{if(x.setOpacity)x.setOpacity(dim?.24:1);});
+          nodes.getLayers().forEach(x=>{if(x.setOpacity)x.setOpacity(dim ? .24 : 1);});
         }
-        if(label&&label.setOpacity) label.setOpacity(dim?.2:1);
+        if(label&&label.setOpacity) label.setOpacity(dim ? .2 : 1);
       }
     }
 
@@ -228,7 +228,7 @@
       }else{
         all=this.layers.get(id)?.latlngs||[];
       }
-      if(all.length) this.map.fitBounds(this.L.latLngBounds(all).pad(id==='all'?.08:.12),{animate:false});
+      if(all.length) this.map.fitBounds(this.L.latLngBounds(all).pad(id==='all' ? .08 : .12),{animate:false});
     }
   }
 
