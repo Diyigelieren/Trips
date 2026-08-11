@@ -13,6 +13,9 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
+  /* Mobile map space is more valuable than the static route legend. */
+  .legend { display: none !important; }
+
   header {
     box-sizing: border-box;
     width: 100%;
@@ -180,18 +183,6 @@
 
   .mapbox { height: clamp(380px, 55svh, 500px) !important; }
 
-  .legend {
-    left: 10px !important;
-    bottom: 12px !important;
-    width: auto !important;
-    max-width: calc(100% - 76px) !important;
-    padding: 9px 10px !important;
-    border-radius: 14px !important;
-  }
-  .legend-title { margin-bottom: 0 !important; }
-  .legend-title span, .legend-grid, .legend-foot { display: none !important; }
-  .legend-title b { font-size: 10px !important; font-weight: 650 !important; }
-
   .daytop {
     align-items: flex-start !important;
     gap: 8px !important;
@@ -229,8 +220,6 @@
     padding: 0 12px !important;
   }
   .btn#fit { min-width: 76px; }
-
-  .legend { display: none !important; }
 
   .tabs { padding-left: 8px !important; padding-right: 8px !important; }
   .tab { font-size: 11px !important; padding-left: 5px !important; padding-right: 5px !important; }
