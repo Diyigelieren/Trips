@@ -1,0 +1,270 @@
+/* Mobile-first overrides for the Chuanxi trip page */
+@media (max-width: 900px) {
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    height: auto !important;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  header {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 88px !important;
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 14px 12px !important;
+    gap: 12px !important;
+  }
+
+  .titlewrap { min-width: 0; flex: 1 1 auto; }
+  .titlecopy { min-width: 0; }
+  .eyebrow { margin-bottom: 5px !important; }
+  header h1 {
+    max-width: 100%;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.28 !important;
+  }
+  header p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.45 !important;
+  }
+
+  main {
+    display: block !important;
+    width: 100%;
+    height: auto !important;
+  }
+
+  .mapbox {
+    width: 100%;
+    height: clamp(390px, 58svh, 540px) !important;
+    min-height: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .toolbar {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 5px !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .toolbar::-webkit-scrollbar { display: none; }
+
+  .btn {
+    min-width: 46px;
+    min-height: 42px;
+    padding: 0 13px !important;
+    font-size: 12px !important;
+    border-radius: 12px !important;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    touch-action: manipulation;
+  }
+  .btn#fit {
+    min-width: 78px;
+    border-left: 1px solid rgba(255,255,255,.12) !important;
+  }
+
+  .side {
+    width: 100%;
+    overflow: visible !important;
+    border-left: 0 !important;
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .tabs {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 900 !important;
+    min-height: 54px;
+    padding: 8px 10px 7px !important;
+    background: rgba(8,17,27,.94) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  }
+  .tab {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px !important;
+    touch-action: manipulation;
+  }
+
+  .panel { padding: 12px 12px calc(28px + env(safe-area-inset-bottom, 0px)) !important; }
+  .card {
+    padding: 15px !important;
+    border-radius: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  .card h3 { font-size: 14px !important; }
+  .card p { font-size: 12px !important; line-height: 1.7 !important; }
+  .notice { font-size: 12px !important; line-height: 1.7 !important; }
+  .stop b { font-size: 12px !important; }
+  .meta { font-size: 10px !important; }
+  .desc { font-size: 11px !important; line-height: 1.6 !important; }
+  .badge { font-size: 10px !important; padding: 5px 8px !important; }
+  .soc { font-size: 11px !important; }
+  .soc div { padding: 9px 7px !important; }
+
+  .leaflet-top.leaflet-left {
+    right: 10px !important;
+    bottom: 12px !important;
+  }
+  .leaflet-control-zoom a {
+    width: 38px !important;
+    height: 38px !important;
+    line-height: 38px !important;
+  }
+  .leaflet-control-attribution {
+    max-width: 62vw;
+    font-size: 8px !important;
+    line-height: 1.25 !important;
+  }
+  .leaflet-popup-content-wrapper { max-width: calc(100vw - 34px); }
+  .leaflet-popup-content {
+    min-width: 0 !important;
+    width: min(240px, calc(100vw - 70px));
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+  }
+  .brandmark {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 12px !important;
+    font-size: 17px !important;
+  }
+  .titlewrap { gap: 10px !important; }
+  .eyebrow { font-size: 8px !important; letter-spacing: .1em !important; }
+  header h1 { font-size: 18px !important; }
+  header p { font-size: 10px !important; }
+
+  .metrics {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px !important;
+  }
+  .metric {
+    min-width: 0 !important;
+    padding: 7px 9px !important;
+    border-radius: 12px !important;
+  }
+  .metric:nth-child(3) { display: block !important; }
+  .metric b { font-size: 11px !important; }
+  .metric small { display: block !important; font-size: 7px !important; }
+
+  .mapbox { height: clamp(380px, 55svh, 500px) !important; }
+
+  .legend {
+    left: 10px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    max-width: calc(100% - 76px) !important;
+    padding: 9px 10px !important;
+    border-radius: 14px !important;
+  }
+  .legend-title { margin-bottom: 0 !important; }
+  .legend-title span, .legend-grid, .legend-foot { display: none !important; }
+  .legend-title b { font-size: 10px !important; font-weight: 650 !important; }
+
+  .daytop {
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .daytop h3 { flex: 1 1 auto; }
+}
+
+@media (max-width: 430px) {
+  header {
+    min-height: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .brandmark { display: grid !important; flex: 0 0 34px !important; width: 34px !important; height: 34px !important; }
+  .eyebrow em { display: none; }
+  header h1 { font-size: 17px !important; }
+  header p { font-size: 10px !important; -webkit-line-clamp: 1; }
+
+  .metrics { grid-template-columns: repeat(3,1fr); }
+  .metric { padding: 7px 6px !important; text-align: center; }
+  .metric b { font-size: 10px !important; }
+  .metric small { font-size: 6px !important; }
+
+  .mapbox { height: clamp(360px, 52svh, 460px) !important; }
+
+  .toolbar {
+    left: 8px !important;
+    right: 8px !important;
+    top: 8px !important;
+    border-radius: 15px !important;
+  }
+  .btn {
+    min-width: 44px;
+    min-height: 42px;
+    padding: 0 12px !important;
+  }
+  .btn#fit { min-width: 76px; }
+
+  .legend { display: none !important; }
+
+  .tabs { padding-left: 8px !important; padding-right: 8px !important; }
+  .tab { font-size: 11px !important; padding-left: 5px !important; padding-right: 5px !important; }
+  .panel { padding: 10px 10px calc(24px + env(safe-area-inset-bottom, 0px)) !important; }
+  .card { padding: 14px 13px !important; border-radius: 17px !important; }
+  .notice { padding: 12px 12px 12px 14px !important; }
+  .timeline { margin-left: 2px !important; padding-left: 18px !important; }
+
+  .leaflet-popup-content { width: min(220px, calc(100vw - 64px)); }
+  .leaflet-control-attribution { max-width: 74vw; }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  header {
+    min-height: 64px !important;
+    padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  .brandmark { width: 34px !important; height: 34px !important; }
+  .eyebrow, header p, .metrics { display: none !important; }
+  header h1 { font-size: 16px !important; margin: 0 !important; }
+  .mapbox {
+    height: calc(100svh - 64px) !important;
+    min-height: 300px !important;
+  }
+  .legend { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
