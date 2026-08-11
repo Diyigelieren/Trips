@@ -1,0 +1,85 @@
+{
+  "router": {
+    "enabled": true,
+    "service": "osrm",
+    "endpoint": "https://router.project-osrm.org/route/v1/driving/",
+    "timeout": 6500
+  },
+  "points": {
+    "成都": [30.5728, 104.0668],
+    "映秀": [31.061, 103.49],
+    "卧龙": [31.04, 103.15],
+    "猫鼻梁": [31.0, 102.84],
+    "四姑娘山镇": [30.995, 102.835],
+    "小金": [31.0, 102.36],
+    "丹巴": [30.878, 101.886],
+    "八美": [30.46, 101.5],
+    "塔公": [30.31, 101.52],
+    "新都桥": [30.04, 101.49],
+    "雅江": [30.03, 101.01],
+    "天路十八弯": [30.095, 100.88],
+    "剪子弯山": [30.095, 100.76],
+    "卡子拉山": [30.09, 100.52],
+    "理塘": [29.996, 100.269],
+    "毛垭大草原": [30.03, 99.95],
+    "折多山": [30.055, 101.8],
+    "康定": [30.05, 101.96],
+    "泸定": [29.91, 102.23],
+    "天全": [30.06, 102.77],
+    "雅安": [30.01, 103.0]
+  },
+  "routes": [
+    {
+      "id": "d1",
+      "name": "D1",
+      "title": "成都 → 四姑娘山 → 丹巴 → 八美",
+      "color": "#4f8cff",
+      "weight": 6,
+      "casingWeight": 11,
+      "arrowSpacing": 185,
+      "mobileArrowSpacing": 145,
+      "geometryUrl": "./routes/d1.geojson",
+      "waypoints": ["成都", "映秀", "卧龙", "猫鼻梁", "四姑娘山镇", "小金", "丹巴", "八美"],
+      "nodes": [0, 3, 4, 6, 7]
+    },
+    {
+      "id": "d2",
+      "name": "D2",
+      "title": "八美 → 塔公 → 新都桥 → 雅江 → 理塘",
+      "color": "#48c88c",
+      "weight": 6,
+      "casingWeight": 11,
+      "arrowSpacing": 175,
+      "mobileArrowSpacing": 140,
+      "geometryUrl": "./routes/d2.geojson",
+      "waypoints": ["八美", "塔公", "新都桥", "雅江", "天路十八弯", "剪子弯山", "卡子拉山", "理塘"],
+      "nodes": [0, 1, 2, 3, 7]
+    },
+    {
+      "id": "d3",
+      "name": "D3",
+      "title": "理塘 → 毛垭草原 → G318 → 康定",
+      "color": "#f0a354",
+      "weight": 6,
+      "casingWeight": 11,
+      "arrowSpacing": 180,
+      "mobileArrowSpacing": 145,
+      "geometryUrl": "./routes/d3.geojson",
+      "waypoints": ["理塘", "毛垭大草原", "理塘", "卡子拉山", "剪子弯山", "天路十八弯", "雅江", "新都桥", "折多山", "康定"],
+      "nodes": [0, 1, 6, 7, 9]
+    },
+    {
+      "id": "d4",
+      "name": "D4",
+      "title": "康定 → 雅安 → 成都",
+      "color": "#ac7fe3",
+      "weight": 6,
+      "casingWeight": 11,
+      "arrowSpacing": 185,
+      "mobileArrowSpacing": 145,
+      "geometryUrl": "./routes/d4.geojson",
+      "waypoints": ["康定", "泸定", "天全", "雅安", "成都"],
+      "nodes": [0, 1, 2, 3, 4]
+    }
+  ]
+}
