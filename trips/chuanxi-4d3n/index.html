@@ -13,7 +13,8 @@ const frame=document.getElementById('trip');
 frame.addEventListener('load',()=>{
   const d=frame.contentDocument;
   if(!d){frame.classList.add('ready');return;}
-  const css=d.createElement('link');css.rel='stylesheet';css.href='./premium.css?v=20260811';css.onload=()=>frame.classList.add('ready');d.head.appendChild(css);
+  const premium=d.createElement('link');premium.rel='stylesheet';premium.href='./premium.css?v=20260811-2';d.head.appendChild(premium);
+  const mobile=d.createElement('link');mobile.rel='stylesheet';mobile.href='./mobile.css?v=20260811-1';mobile.onload=()=>frame.classList.add('ready');d.head.appendChild(mobile);
   const header=d.querySelector('header');
   if(header){header.innerHTML=`<div class="titlewrap"><div class="brandmark">🏔️</div><div class="titlecopy"><div class="eyebrow"><a href="../../" target="_top">TRIPS</a><span></span><em>WEST SICHUAN ROAD TRIP</em></div><h1>川西 4天3晚 · 轻量电车自驾攻略</h1><p>四姑娘山快速通过 · G318 · 理塘 · 毛垭草原 · 康定</p></div></div><div class="metrics"><div class="metric"><b>4天3晚</b><small>DURATION</small></div><div class="metric"><b>≈1270 km</b><small>DISTANCE</small></div><div class="metric"><b>EV</b><small>ROAD TRIP</small></div></div>`;}
   const legend=d.querySelector('.legend');
