@@ -36,48 +36,52 @@
       "name": "D1",
       "title": "成都 → 四姑娘山 → 丹巴 → 八美",
       "color": "#4f8cff",
-      "weight": 6,
-      "casingWeight": 11,
-      "arrowSpacing": 185,
-      "mobileArrowSpacing": 145,
+      "weight": 5,
+      "casingWeight": 7,
+      "arrowSpacing": 300,
+      "mobileArrowSpacing": 260,
+      "showLabel": false,
       "waypoints": ["成都", "映秀", "卧龙", "猫鼻梁", "四姑娘山镇", "小金", "丹巴", "八美"],
-      "nodes": [0, 3, 4, 6, 7]
+      "nodes": []
     },
     {
       "id": "d2",
       "name": "D2",
       "title": "八美 → 塔公 → 新都桥 → 雅江 → 理塘",
       "color": "#48c88c",
-      "weight": 6,
-      "casingWeight": 11,
-      "arrowSpacing": 175,
-      "mobileArrowSpacing": 140,
+      "weight": 5,
+      "casingWeight": 7,
+      "arrowSpacing": 290,
+      "mobileArrowSpacing": 250,
+      "showLabel": false,
       "waypoints": ["八美", "塔公", "新都桥", "雅江", "天路十八弯", "剪子弯山", "卡子拉山", "理塘"],
-      "nodes": [0, 1, 2, 3, 7]
+      "nodes": []
     },
     {
       "id": "d3",
       "name": "D3",
       "title": "理塘 → 毛垭草原 → G318 → 康定",
       "color": "#f0a354",
-      "weight": 6,
-      "casingWeight": 11,
-      "arrowSpacing": 180,
-      "mobileArrowSpacing": 145,
+      "weight": 5,
+      "casingWeight": 7,
+      "arrowSpacing": 300,
+      "mobileArrowSpacing": 260,
+      "showLabel": false,
       "waypoints": ["理塘", "毛垭大草原", "理塘", "卡子拉山", "剪子弯山", "天路十八弯", "雅江", "新都桥", "折多山", "康定"],
-      "nodes": [0, 1, 6, 7, 9]
+      "nodes": []
     },
     {
       "id": "d4",
       "name": "D4",
       "title": "康定 → 雅安 → 成都",
       "color": "#ac7fe3",
-      "weight": 6,
-      "casingWeight": 11,
-      "arrowSpacing": 185,
-      "mobileArrowSpacing": 145,
+      "weight": 5,
+      "casingWeight": 7,
+      "arrowSpacing": 310,
+      "mobileArrowSpacing": 270,
+      "showLabel": false,
       "waypoints": ["康定", "泸定", "天全", "雅安", "成都"],
-      "nodes": [0, 1, 2, 3, 4]
+      "nodes": []
     }
   ]
 }
