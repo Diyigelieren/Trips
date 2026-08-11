@@ -49,13 +49,12 @@ frame.addEventListener('load',()=>{
 
   const labels=['行程路书','补能策略','驾驶原则'];d.querySelectorAll('.tab').forEach((el,i)=>{if(labels[i])el.textContent=labels[i]});
 
-  // Expose the existing map internals once, then let the reusable RouteBookLayer own route rendering.
   const bridge=d.createElement('script');
   bridge.textContent='window.TRIP_CONTEXT={map,DAYS,P,routeLayers,bounds,showDay};';
   d.body.appendChild(bridge);
 
   const routeBookScript=d.createElement('script');
-  routeBookScript.src='../../assets/routebook/route-book.js?v=20260811-1';
+  routeBookScript.src='../../assets/routebook/route-book.js?v=20260811-2';
   routeBookScript.onload=async()=>{
     try{
       const ctx=w.TRIP_CONTEXT;
@@ -65,7 +64,6 @@ frame.addEventListener('load',()=>{
       const book=await w.RouteBookLayer.fromConfig({map:ctx.map,L:w.L,configUrl,baseUrl});
       await book.init();
 
-      // Remove the legacy single-stroke routes after the route-book layer is ready.
       Object.values(ctx.routeLayers||{}).forEach(layer=>{if(ctx.map.hasLayer(layer))ctx.map.removeLayer(layer);});
 
       const syncButtons=id=>d.querySelectorAll('.btn[data-show]').forEach(b=>b.classList.toggle('active',b.dataset.show===id));
