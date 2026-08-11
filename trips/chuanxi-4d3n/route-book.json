@@ -3,7 +3,9 @@
     "enabled": true,
     "service": "osrm",
     "endpoint": "https://router.project-osrm.org/route/v1/driving/",
-    "timeout": 6500
+    "timeout": 6500,
+    "minIntervalMs": 1100,
+    "cacheTtlDays": 14
   },
   "points": {
     "成都": [30.5728, 104.0668],
@@ -38,7 +40,6 @@
       "casingWeight": 11,
       "arrowSpacing": 185,
       "mobileArrowSpacing": 145,
-      "geometryUrl": "./routes/d1.geojson",
       "waypoints": ["成都", "映秀", "卧龙", "猫鼻梁", "四姑娘山镇", "小金", "丹巴", "八美"],
       "nodes": [0, 3, 4, 6, 7]
     },
@@ -51,7 +52,6 @@
       "casingWeight": 11,
       "arrowSpacing": 175,
       "mobileArrowSpacing": 140,
-      "geometryUrl": "./routes/d2.geojson",
       "waypoints": ["八美", "塔公", "新都桥", "雅江", "天路十八弯", "剪子弯山", "卡子拉山", "理塘"],
       "nodes": [0, 1, 2, 3, 7]
     },
@@ -64,7 +64,6 @@
       "casingWeight": 11,
       "arrowSpacing": 180,
       "mobileArrowSpacing": 145,
-      "geometryUrl": "./routes/d3.geojson",
       "waypoints": ["理塘", "毛垭大草原", "理塘", "卡子拉山", "剪子弯山", "天路十八弯", "雅江", "新都桥", "折多山", "康定"],
       "nodes": [0, 1, 6, 7, 9]
     },
@@ -77,7 +76,6 @@
       "casingWeight": 11,
       "arrowSpacing": 185,
       "mobileArrowSpacing": 145,
-      "geometryUrl": "./routes/d4.geojson",
       "waypoints": ["康定", "泸定", "天全", "雅安", "成都"],
       "nodes": [0, 1, 2, 3, 4]
     }
