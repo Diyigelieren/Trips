@@ -14,11 +14,53 @@ frame.addEventListener('load',()=>{
   const d=frame.contentDocument;
   if(!d){frame.classList.add('ready');return;}
   const premium=d.createElement('link');premium.rel='stylesheet';premium.href='./premium.css?v=20260811-2';d.head.appendChild(premium);
-  const mobile=d.createElement('link');mobile.rel='stylesheet';mobile.href='./mobile.css?v=20260811-1';mobile.onload=()=>frame.classList.add('ready');d.head.appendChild(mobile);
+  const mobile=d.createElement('link');mobile.rel='stylesheet';mobile.href='./mobile.css?v=20260811-2';d.head.appendChild(mobile);
+  const legendCss=d.createElement('link');legendCss.rel='stylesheet';legendCss.href='./legend-toggle.css?v=20260811-1';legendCss.onload=()=>frame.classList.add('ready');d.head.appendChild(legendCss);
+
   const header=d.querySelector('header');
   if(header){header.innerHTML=`<div class="titlewrap"><div class="brandmark">🏔️</div><div class="titlecopy"><div class="eyebrow"><a href="../../" target="_top">TRIPS</a><span></span><em>WEST SICHUAN ROAD TRIP</em></div><h1>川西 4天3晚 · 轻量电车自驾攻略</h1><p>四姑娘山快速通过 · G318 · 理塘 · 毛垭草原 · 康定</p></div></div><div class="metrics"><div class="metric"><b>4天3晚</b><small>DURATION</small></div><div class="metric"><b>≈1270 km</b><small>DISTANCE</small></div><div class="metric"><b>EV</b><small>ROAD TRIP</small></div></div>`;}
+
   const legend=d.querySelector('.legend');
-  if(legend){legend.innerHTML=`<div class="legend-title"><b>路线图层</b><span>LOCAL ROUTE · OSM</span></div><div class="legend-grid"><div class="route-key"><i style="background:#4f8cff"></i>D1 四姑娘山 → 八美</div><div class="route-key"><i style="background:#48c88c"></i>D2 G318 → 理塘</div><div class="route-key"><i style="background:#f0a354"></i>D3 毛垭 → 康定</div><div class="route-key"><i style="background:#ac7fe3"></i>D4 康定 → 成都</div></div><div class="legend-foot">⚡ 补电　★ 景观　▣ 住宿 · 路线数据本地加载</div>`;}
+  if(legend){
+    legend.innerHTML=`<div class="legend-title"><b>路线图层</b><span>LOCAL ROUTE · OSM</span></div><div class="legend-grid"><div class="route-key"><i style="background:#4f8cff"></i>D1 四姑娘山 → 八美</div><div class="route-key"><i style="background:#48c88c"></i>D2 G318 → 理塘</div><div class="route-key"><i style="background:#f0a354"></i>D3 毛垭 → 康定</div><div class="route-key"><i style="background:#ac7fe3"></i>D4 康定 → 成都</div></div><div class="legend-foot">⚡ 补电　★ 景观　▣ 住宿 · 路线数据本地加载</div>`;
+
+    const mapbox=d.querySelector('.mapbox');
+    if(mapbox){
+      const toggle=d.createElement('button');
+      toggle.className='legend-toggle';
+      toggle.type='button';
+      toggle.setAttribute('aria-label','展开路线图层');
+      toggle.setAttribute('aria-expanded','false');
+      toggle.innerHTML=`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m5.5 11 6.5 3.5 6.5-3.5M5.5 15l6.5 3.5 6.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      mapbox.appendChild(toggle);
+
+      const syncLegend=()=>{
+        const mobileView=innerWidth<=900;
+        if(mobileView){
+          legend.classList.add('mobile-collapsed');
+          toggle.setAttribute('aria-expanded','false');
+          toggle.setAttribute('aria-label','展开路线图层');
+        }else{
+          legend.classList.remove('mobile-collapsed');
+          toggle.setAttribute('aria-expanded','true');
+        }
+      };
+      syncLegend();
+
+      toggle.addEventListener('click',()=>{
+        const collapsed=legend.classList.toggle('mobile-collapsed');
+        toggle.setAttribute('aria-expanded',String(!collapsed));
+        toggle.setAttribute('aria-label',collapsed?'展开路线图层':'收起路线图层');
+      });
+
+      let resizeTimer;
+      d.defaultView.addEventListener('resize',()=>{
+        clearTimeout(resizeTimer);
+        resizeTimer=setTimeout(syncLegend,120);
+      });
+    }
+  }
+
   const labels=['行程路书','补能策略','驾驶原则'];d.querySelectorAll('.tab').forEach((el,i)=>{if(labels[i])el.textContent=labels[i]});
   setTimeout(()=>frame.classList.add('ready'),300);
 });
