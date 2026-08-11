@@ -12,17 +12,21 @@
 const frame=document.getElementById('trip');
 frame.addEventListener('load',()=>{
   const d=frame.contentDocument;
-  if(!d){frame.classList.add('ready');return;}
-  const premium=d.createElement('link');premium.rel='stylesheet';premium.href='./premium.css?v=20260811-2';d.head.appendChild(premium);
-  const mobile=d.createElement('link');mobile.rel='stylesheet';mobile.href='./mobile.css?v=20260811-2';d.head.appendChild(mobile);
-  const legendCss=d.createElement('link');legendCss.rel='stylesheet';legendCss.href='./legend-toggle.css?v=20260811-1';legendCss.onload=()=>frame.classList.add('ready');d.head.appendChild(legendCss);
+  const w=frame.contentWindow;
+  if(!d||!w){frame.classList.add('ready');return;}
+
+  const addCss=(href,onload)=>{const el=d.createElement('link');el.rel='stylesheet';el.href=href;if(onload)el.onload=onload;d.head.appendChild(el);return el;};
+  addCss('./premium.css?v=20260811-2');
+  addCss('./mobile.css?v=20260811-3');
+  addCss('./legend-toggle.css?v=20260811-1');
+  addCss('../../assets/routebook/route-book.css?v=20260811-1',()=>frame.classList.add('ready'));
 
   const header=d.querySelector('header');
   if(header){header.innerHTML=`<div class="titlewrap"><div class="brandmark">🏔️</div><div class="titlecopy"><div class="eyebrow"><a href="../../" target="_top">TRIPS</a><span></span><em>WEST SICHUAN ROAD TRIP</em></div><h1>川西 4天3晚 · 轻量电车自驾攻略</h1><p>四姑娘山快速通过 · G318 · 理塘 · 毛垭草原 · 康定</p></div></div><div class="metrics"><div class="metric"><b>4天3晚</b><small>DURATION</small></div><div class="metric"><b>≈1270 km</b><small>DISTANCE</small></div><div class="metric"><b>EV</b><small>ROAD TRIP</small></div></div>`;}
 
   const legend=d.querySelector('.legend');
   if(legend){
-    legend.innerHTML=`<div class="legend-title"><b>路线图层</b><span>LOCAL ROUTE · OSM</span></div><div class="legend-grid"><div class="route-key"><i style="background:#4f8cff"></i>D1 四姑娘山 → 八美</div><div class="route-key"><i style="background:#48c88c"></i>D2 G318 → 理塘</div><div class="route-key"><i style="background:#f0a354"></i>D3 毛垭 → 康定</div><div class="route-key"><i style="background:#ac7fe3"></i>D4 康定 → 成都</div></div><div class="legend-foot">⚡ 补电　★ 景观　▣ 住宿 · 路线数据本地加载</div>`;
+    legend.innerHTML=`<div class="legend-title"><b>路线图层</b><span>ROUTE BOOK · OSM</span></div><div class="legend-grid"><div class="route-key"><i style="background:#4f8cff"></i>D1 四姑娘山 → 八美</div><div class="route-key"><i style="background:#48c88c"></i>D2 G318 → 理塘</div><div class="route-key"><i style="background:#f0a354"></i>D3 毛垭 → 康定</div><div class="route-key"><i style="background:#ac7fe3"></i>D4 康定 → 成都</div></div><div class="legend-foot">›› 行进方向　⚡ 补电　★ 景观　▣ 住宿</div>`;
 
     const mapbox=d.querySelector('.mapbox');
     if(mapbox){
@@ -33,38 +37,50 @@ frame.addEventListener('load',()=>{
       toggle.setAttribute('aria-expanded','false');
       toggle.innerHTML=`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m5.5 11 6.5 3.5 6.5-3.5M5.5 15l6.5 3.5 6.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
       mapbox.appendChild(toggle);
-
       const syncLegend=()=>{
-        const mobileView=innerWidth<=900;
-        if(mobileView){
-          legend.classList.add('mobile-collapsed');
-          toggle.setAttribute('aria-expanded','false');
-          toggle.setAttribute('aria-label','展开路线图层');
-        }else{
-          legend.classList.remove('mobile-collapsed');
-          toggle.setAttribute('aria-expanded','true');
-        }
+        if(w.innerWidth<=900){legend.classList.add('mobile-collapsed');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','展开路线图层');}
+        else{legend.classList.remove('mobile-collapsed');toggle.setAttribute('aria-expanded','true');}
       };
       syncLegend();
-
-      toggle.addEventListener('click',()=>{
-        const collapsed=legend.classList.toggle('mobile-collapsed');
-        toggle.setAttribute('aria-expanded',String(!collapsed));
-        toggle.setAttribute('aria-label',collapsed?'展开路线图层':'收起路线图层');
-      });
-
-      let resizeTimer;
-      d.defaultView.addEventListener('resize',()=>{
-        clearTimeout(resizeTimer);
-        resizeTimer=setTimeout(syncLegend,120);
-      });
+      toggle.addEventListener('click',()=>{const collapsed=legend.classList.toggle('mobile-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));toggle.setAttribute('aria-label',collapsed?'展开路线图层':'收起路线图层');});
+      let resizeTimer;w.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(syncLegend,120);});
     }
   }
 
   const labels=['行程路书','补能策略','驾驶原则'];d.querySelectorAll('.tab').forEach((el,i)=>{if(labels[i])el.textContent=labels[i]});
-  setTimeout(()=>frame.classList.add('ready'),300);
+
+  // Expose the existing map internals once, then let the reusable RouteBookLayer own route rendering.
+  const bridge=d.createElement('script');
+  bridge.textContent='window.TRIP_CONTEXT={map,DAYS,P,routeLayers,bounds,showDay};';
+  d.body.appendChild(bridge);
+
+  const routeBookScript=d.createElement('script');
+  routeBookScript.src='../../assets/routebook/route-book.js?v=20260811-1';
+  routeBookScript.onload=async()=>{
+    try{
+      const ctx=w.TRIP_CONTEXT;
+      if(!ctx||!w.RouteBookLayer)return;
+      const baseUrl=new URL('./',d.location.href).href;
+      const configUrl=new URL('./route-book.json',baseUrl).href;
+      const book=await w.RouteBookLayer.fromConfig({map:ctx.map,L:w.L,configUrl,baseUrl});
+      await book.init();
+
+      // Remove the legacy single-stroke routes after the route-book layer is ready.
+      Object.values(ctx.routeLayers||{}).forEach(layer=>{if(ctx.map.hasLayer(layer))ctx.map.removeLayer(layer);});
+
+      const syncButtons=id=>d.querySelectorAll('.btn[data-show]').forEach(b=>b.classList.toggle('active',b.dataset.show===id));
+      book.onChange=syncButtons;
+      d.querySelectorAll('.btn[data-show]').forEach(b=>{b.onclick=()=>book.setActive(b.dataset.show,{fit:true});});
+      const fit=d.getElementById('fit');if(fit)fit.onclick=()=>book.fit(book.activeId);
+      book.setActive('all',{fit:true});
+      w.routeBook=book;
+    }catch(err){console.warn('[RouteBook] enhancement unavailable; legacy route remains.',err);}
+  };
+  d.body.appendChild(routeBookScript);
+
+  setTimeout(()=>frame.classList.add('ready'),350);
 });
-setTimeout(()=>frame.classList.add('ready'),1600);
+setTimeout(()=>frame.classList.add('ready'),1800);
 </script>
 </body>
 </html>
